@@ -18,5 +18,5 @@ export default defineConfig({
       randomize: true,
     },
   },
-  dirs: ["apps/distillery"],
+  dirs: ["packages/distillery"],
 });

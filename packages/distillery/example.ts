@@ -7,7 +7,7 @@ export const helloWorldTask = task({
     logger.log("Hello, world!", { payload, ctx });
 
     return {
-      message: "Hello, world!",
+      message: "Hello, world!!",
     };
   },
 });
