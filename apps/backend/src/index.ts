@@ -12,7 +12,11 @@ const resolvers = {
     expenses: () =>
       prisma.expense.findMany({
         include: {
-          participants: true,
+          participants: {
+            include: {
+              user: true,
+            },
+          },
         },
       }),
     balances: () => [],
@@ -28,4 +32,4 @@ const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
 });
 
-console.log(`🚀  Server ready at: ${url}`);
+console.log(`🚀 Server ready at: ${url}`);
