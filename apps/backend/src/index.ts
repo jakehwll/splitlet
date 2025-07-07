@@ -1,39 +1,16 @@
-import { DateTimeResolver } from 'graphql-scalars';
+import { DateTimeResolver } from "graphql-scalars";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import schema from "./schema";
-import type { Balance, Expense } from "./_generated/types";
+import { PrismaClient } from "@prisma/client";
 
-const expenses: Expense[] = [
-  {
-    id: "1",
-    payeeId: "1",
-    amount: 100,
-    date: new Date().toISOString(),
-    description: "test",
-  },
-  {
-    id: "2",
-    payeeId: "1",
-    amount: 100,
-    date: new Date().toISOString(),
-    description: "test",
-  },
-];
-
-const balances: Balance[] = [
-  {
-    payeeId: "1",
-    recipientId: "2",
-    amount: 100,
-  }
-]
+const prisma = new PrismaClient();
 
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    expenses: () => expenses,
-    balances: () => balances,
+    expenses: () => prisma.expense.findMany(),
+    balances: () => [],
   },
 };
 

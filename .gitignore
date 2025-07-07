@@ -41,3 +41,7 @@ _generated/
 
 # trigger
 .trigger
+
+# env
+.env
+!.env.example

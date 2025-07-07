@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.12.2",
+    "@repo/prisma": "workspace:*",
     "graphql-scalars": "^1.24.2"
   },
   "devDependencies": {
