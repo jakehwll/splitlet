@@ -4,15 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "module": "index.ts",
+  "scripts": {
+    "dev": "turbo run dev --parallel"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/node": "^24.0.10",
+    "prisma": "^6.11.1",
+    "tsx": "^4.20.3"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "eslint-config-prettier": "^10.1.5",

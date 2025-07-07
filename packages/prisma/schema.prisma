@@ -1,0 +1,34 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id String @id @default(uuid())
+
+    Expense            Expense[]
+    ExpenseParticipant ExpenseParticipant[]
+}
+
+model Expense {
+    id          String   @id @default(uuid())
+    groupId     String?
+    payeeId     String
+    amount      Float
+    date        DateTime
+    description String?
+
+    payee        User                 @relation(fields: [payeeId], references: [id])
+    participants ExpenseParticipant[]
+}
+
+model ExpenseParticipant {
+    userId    String
+    expenseId String
+    amount    Float
+
+    user    User     @relation(fields: [userId], references: [id])
+    Expense Expense? @relation(fields: [expenseId], references: [id])
+
+    @@id([userId, expenseId])
+}
