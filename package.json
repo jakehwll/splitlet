@@ -11,6 +11,9 @@
     "apps/*",
     "packages/*"
   ],
+  "prisma": {
+    "schema": "packages/prisma/schema.prisma"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^24.0.10",
