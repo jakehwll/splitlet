@@ -15,12 +15,14 @@
     "@types/bun": "latest",
     "@types/node": "^24.0.10",
     "prisma": "^6.11.1",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.3",
+    "@trigger.dev/build": "^3.3.17"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@trigger.dev/sdk": "^3.3.17",
     "eslint-config-prettier": "^10.1.5",
     "turbo": "^2.5.4"
   },
