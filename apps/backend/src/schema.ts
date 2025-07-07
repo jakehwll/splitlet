@@ -8,6 +8,7 @@ const schema = `#graphql
     amount: Float!
     date: DateTime!
     description: String
+    participants: [ExpenseParticipant]
   }
 
   type ExpenseParticipant {

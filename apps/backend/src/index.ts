@@ -9,7 +9,12 @@ const prisma = new PrismaClient();
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    expenses: () => prisma.expense.findMany(),
+    expenses: () =>
+      prisma.expense.findMany({
+        include: {
+          participants: true,
+        },
+      }),
     balances: () => [],
   },
 };
