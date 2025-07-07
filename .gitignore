@@ -38,3 +38,6 @@ _generated/
 
 # turborepo
 .turbo
+
+# trigger
+.trigger
