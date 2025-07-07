@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthKitProvider, Impersonation } from "@workos-inc/authkit-nextjs/components";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,12 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <div className="flex">
-          <div className="w-60 h-screen"></div>
-          <div className="flex-1 p-2 min-h-screen flex flex-col p-2">
-            <div className="flex-1 p-6 border border-gray-200 rounded-lg">{children}</div>
+        <AuthKitProvider>
+          <Impersonation />
+          <div className="flex">
+            <div className="p-2 w-60 h-screen min-w-0">TODO</div>
+            <div className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
+              <div className="flex-1 p-6 border border-gray-200 rounded-lg">{children}</div>
+            </div>
           </div>
-        </div>
+        </AuthKitProvider>
       </body>
     </html>
   );
