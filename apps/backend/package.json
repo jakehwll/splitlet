@@ -4,18 +4,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot ./src/index.ts",
-    "generate": "graphql-codegen"
+    "dev": "bun run --hot ./src/index.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.12.2",
-    "@repo/prisma": "workspace:*",
-    "graphql-scalars": "^1.24.2"
+    "@repo/graphql": "workspace:*",
+    "@repo/prisma": "workspace:*"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.7",
-    "@graphql-codegen/typescript": "^4.1.6",
-    "@graphql-codegen/typescript-resolvers": "^4.5.1",
     "@types/bun": "latest"
   }
 }

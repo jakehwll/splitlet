@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@workos-inc/authkit-nextjs": "^2.4.2",
     "classcat": "^5.0.5",
+    "graphql": "^16.11.0",
     "lucide-react": "^0.525.0",
     "next": "15.3.5",
     "react": "^19.0.0",

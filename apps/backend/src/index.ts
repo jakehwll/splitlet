@@ -1,8 +1,8 @@
 import { DateTimeResolver } from "graphql-scalars";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import schema from "./schema";
 import { PrismaClient } from "@prisma/client";
+import { schema } from "@repo/graphql";
 
 const prisma = new PrismaClient();
 

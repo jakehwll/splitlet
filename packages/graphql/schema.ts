@@ -1,4 +1,4 @@
-const schema = `#graphql
+export const schema = `#graphql
   scalar DateTime
 
   type User {
@@ -38,5 +38,3 @@ const schema = `#graphql
     balances: [Balance]
   }
 `;
-
-export default schema;
