@@ -1,1 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+
 @import "tailwindcss";
+
+@theme {
+    --color-gray-25: #FDFDFC;
+    --color-gray-50: #FAFAF9;
+    --color-gray-100: #F5F5F4;
+    --color-gray-200: #E7E5E4;
+    --color-gray-300: #D7D3D0;
+    --color-gray-400: #A9A29D;
+    --color-gray-500: #79716B;
+    --color-gray-600: #57534E;
+    --color-gray-700: #44403C;
+    --color-gray-800: #292524;
+    --color-gray-900: #1C1917;
+    --color-gray-950: #171412;
+
+    --color-green-25: #FAFDF7;
+    --color-green-50: #F5FBEE;
+    --color-green-100: #E6F4D7;
+    --color-green-200: #CEEAB0;
+    --color-green-300: #ACDC79;
+    --color-green-400: #86CB3C;
+    --color-green-500: #669F2A;
+    --color-green-600: #4F7A21;
+    --color-green-700: #3F621A;
+    --color-green-800: #335015;
+    --color-green-900: #2B4212;
+    --color-green-950: #1A280B;
+
+    --font-serif: 'Roboto Serif', serif;
+}
+
+.skeuemorphic:not(:disabled)::before,
+.skeuemorphic:not(:disabled)::after {
+  content: "";
+  position: absolute;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.skeuemorphic:not(:disabled)::before {
+  inset: -1px;
+  padding: 1px;
+  background: linear-gradient(0deg, rgba(10, 13, 18, 0.18) 0%, rgba(10, 13, 18, 0) 100%);
+}
+
+.skeuemorphic:not(:disabled)::after {
+  inset: 0px;
+  padding: 1px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.12));
+}
+
+.skeuemorphic.rounded-md::before {
+  border-radius: var(--radius-md);
+}
+
+.skeuemorphic.rounded-md::after {
+  border-radius: calc(var(--radius-md) - 1px);
+}
+
+.skeuemorphic-alt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(0deg, rgba(10, 13, 18, 0.045) 0%, rgba(10, 13, 18, 0) 20%);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.skeuemorphic-alt.rounded-md::before {
+  border-radius: calc(var(--radius-md) - 1px);
+}
