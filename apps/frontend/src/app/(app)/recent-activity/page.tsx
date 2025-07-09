@@ -1,6 +1,4 @@
-"use client";
-
-import { useQuery } from "@apollo/client";
+import { query } from "@/utils/graphql";
 import { gql } from "@repo/graphql";
 
 const GET_EXPENSES = gql(`
@@ -20,11 +18,18 @@ const GET_EXPENSES = gql(`
 `);
 
 const RecentActivity = () => {
-  const { loading, error, data } = useQuery(GET_EXPENSES, {});
+  return (
+    <>
+      <header>
+        <h1 className="text-2xl font-medium text-white font-serif">Recent Activity</h1>
+      </header>
+      <Activity />
+    </>
+  );
+};
 
-  if (loading) return <div>Loading...</div>;
-
-  if (error) return <div>{error.message}</div>;
+const Activity = async () => {
+  const { data } = await query({ query: GET_EXPENSES });
 
   return <pre>{JSON.stringify(data?.expenses, null, 2)}</pre>;
 };

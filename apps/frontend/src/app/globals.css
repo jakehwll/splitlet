@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
 
 @import "tailwindcss";
 
@@ -29,7 +29,20 @@
     --color-green-900: #2B4212;
     --color-green-950: #1A280B;
 
-    --font-serif: 'Roboto Serif', serif;
+    --color-red-25: #FFF9F5;
+    --color-red-50: #FFF4ED;
+    --color-red-100: #FFE6D5;
+    --color-red-200: #FFD6AE;
+    --color-red-300: #FF9C66;
+    --color-red-400: #FF692E;
+    --color-red-500: #FF4405;
+    --color-red-600: #E62E05;
+    --color-red-700: #BC1B06;
+    --color-red-800: #97180C;
+    --color-red-900: #771A0D;
+    --color-red-950: #57130A;
+
+    --font-serif: 'Young Serif', serif;
 }
 
 .skeuemorphic:not(:disabled)::before,

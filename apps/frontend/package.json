@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "@apollo/client-integration-nextjs": "^0.12.2",
     "@workos-inc/authkit-nextjs": "^2.4.2",
     "classcat": "^5.0.5",
     "graphql": "^16.11.0",
