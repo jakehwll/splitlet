@@ -43,7 +43,7 @@ const Navigation = ({
       <ul className="flex flex-col mt-2 mb-5">
         {items.map(({ icon, name, href }) => (
           <li className="flex py-0.5 cursor-default" key={name}>
-            <a
+            <Link
               href={href}
               className="font-medium px-3 py-2 flex items-center gap-3 rounded-md hover:bg-gray-900 pl-4.5 w-full cursor-default"
             >
@@ -59,7 +59,7 @@ const Navigation = ({
                 </div>
               )}
               <span className="text-sm text-gray-300">{name}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
