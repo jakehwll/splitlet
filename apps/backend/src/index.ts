@@ -3,6 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { PrismaClient } from "@prisma/client";
 import { schema } from "@repo/graphql";
+import { globalQueue } from "./utils/bullmq";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +18,6 @@ const resolvers = {
       return summary;
     },
 
-    // Get LedgerBalances for current user
     ledgerBalances: async (_parent, _args, context) => {
       const userId = context.userId;
       const owedToYou = await prisma.ledgerBalance.findMany({
@@ -31,6 +31,11 @@ const resolvers = {
   },
 
   Mutation: {
+    fooBar: async (_parent, _args, context) => {
+      globalQueue.add("fooBar", { foo: "bar" });
+      return "fooBar";
+    },
+
     addExpense: async (_parent, args, context) => {
       const userId = context.userId;
       const { description, total, splits, date } = args.input;

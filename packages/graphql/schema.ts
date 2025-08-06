@@ -61,5 +61,6 @@ export const schema = `#graphql
   type Mutation {
     addExpense(input: AddExpenseInput!): Expense!
     recalculateNetDebtSummary: NetDebtSummary!
+    fooBar: String!
   }
 `;

@@ -9,7 +9,8 @@
   "dependencies": {
     "@apollo/server": "^4.12.2",
     "@repo/graphql": "workspace:*",
-    "@repo/prisma": "workspace:*"
+    "@repo/prisma": "workspace:*",
+    "bullmq": "^5.56.9"
   },
   "devDependencies": {
     "@types/bun": "latest"
