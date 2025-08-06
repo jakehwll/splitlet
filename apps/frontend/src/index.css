@@ -2,47 +2,51 @@
 
 @import "tailwindcss";
 
+html,body {
+  @apply antialiased bg-gray-950 text-gray-400;
+}
+
 @theme {
-    --color-gray-25: #FDFDFC;
-    --color-gray-50: #FAFAF9;
-    --color-gray-100: #F5F5F4;
-    --color-gray-200: #E7E5E4;
-    --color-gray-300: #D7D3D0;
-    --color-gray-400: #A9A29D;
-    --color-gray-500: #79716B;
-    --color-gray-600: #57534E;
-    --color-gray-700: #44403C;
-    --color-gray-800: #292524;
-    --color-gray-900: #1C1917;
-    --color-gray-950: #171412;
+  --color-gray-25: #FDFDFC;
+  --color-gray-50: #FAFAF9;
+  --color-gray-100: #F5F5F4;
+  --color-gray-200: #E7E5E4;
+  --color-gray-300: #D7D3D0;
+  --color-gray-400: #A9A29D;
+  --color-gray-500: #79716B;
+  --color-gray-600: #57534E;
+  --color-gray-700: #44403C;
+  --color-gray-800: #292524;
+  --color-gray-900: #1C1917;
+  --color-gray-950: #171412;
 
-    --color-green-25: #FAFDF7;
-    --color-green-50: #F5FBEE;
-    --color-green-100: #E6F4D7;
-    --color-green-200: #CEEAB0;
-    --color-green-300: #ACDC79;
-    --color-green-400: #86CB3C;
-    --color-green-500: #669F2A;
-    --color-green-600: #4F7A21;
-    --color-green-700: #3F621A;
-    --color-green-800: #335015;
-    --color-green-900: #2B4212;
-    --color-green-950: #1A280B;
+  --color-green-25: #FAFDF7;
+  --color-green-50: #F5FBEE;
+  --color-green-100: #E6F4D7;
+  --color-green-200: #CEEAB0;
+  --color-green-300: #ACDC79;
+  --color-green-400: #86CB3C;
+  --color-green-500: #669F2A;
+  --color-green-600: #4F7A21;
+  --color-green-700: #3F621A;
+  --color-green-800: #335015;
+  --color-green-900: #2B4212;
+  --color-green-950: #1A280B;
 
-    --color-red-25: #FFF9F5;
-    --color-red-50: #FFF4ED;
-    --color-red-100: #FFE6D5;
-    --color-red-200: #FFD6AE;
-    --color-red-300: #FF9C66;
-    --color-red-400: #FF692E;
-    --color-red-500: #FF4405;
-    --color-red-600: #E62E05;
-    --color-red-700: #BC1B06;
-    --color-red-800: #97180C;
-    --color-red-900: #771A0D;
-    --color-red-950: #57130A;
+  --color-red-25: #FFF9F5;
+  --color-red-50: #FFF4ED;
+  --color-red-100: #FFE6D5;
+  --color-red-200: #FFD6AE;
+  --color-red-300: #FF9C66;
+  --color-red-400: #FF692E;
+  --color-red-500: #FF4405;
+  --color-red-600: #E62E05;
+  --color-red-700: #BC1B06;
+  --color-red-800: #97180C;
+  --color-red-900: #771A0D;
+  --color-red-950: #57130A;
 
-    --font-serif: 'Young Serif', serif;
+  --font-serif: 'Young Serif', serif;
 }
 
 .skeuemorphic:not(:disabled)::before,

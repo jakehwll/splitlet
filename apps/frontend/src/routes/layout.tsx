@@ -1,10 +1,9 @@
-import { ClientProvider } from "@/components/ClientProvider";
-import { ChevronDown, Inbox, LucideIcon, Plus, Receipt, Sparkles, UserPlus } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import { ClientProvider } from "../components/ClientProvider";
+import { ChevronDown, Inbox, type LucideIcon, Plus, Receipt, Sparkles, UserPlus } from "lucide-react";
 
-import ICON__FIREWORK from "@/assets/icon__firework.jpg";
-import ICON__TORIGATE from "@/assets/icon__torigate.jpg";
-import Link from "next/link";
+import ICON__FIREWORK from "../assets/icon__firework.jpg";
+import ICON__TORIGATE from "../assets/icon__torigate.jpg";
+import { Link, Outlet } from "react-router";
 
 const Navigation = ({
   title,
@@ -19,11 +18,11 @@ const Navigation = ({
         }
       | {
           type: "group";
-          value: StaticImageData | string;
+          value: string;
         }
       | {
           type: "user";
-          value: StaticImageData | string;
+          value: string;
         };
     name: string;
     href: string;
@@ -43,18 +42,18 @@ const Navigation = ({
         {items.map(({ icon, name, href }) => (
           <li className="flex py-0.5 cursor-default" key={name}>
             <Link
-              href={href}
+              to={href}
               className="font-medium px-3 py-2 flex items-center gap-3 rounded-md hover:bg-gray-900 pl-4.5 w-full cursor-default"
             >
               {icon.type === "lucide" && <icon.value size={18} className="text-gray-500" />}
               {icon.type === "group" && (
                 <div className="relative w-5 h-5 border border-white/10 bg-gray-600 rounded-md overflow-hidden">
-                  <Image src={icon.value} alt={name} layout="fill" objectFit="cover" />
+                  <img src={icon.value} alt={name} />
                 </div>
               )}
               {icon.type === "user" && (
                 <div className="relative w-5 h-5 rounded-full overflow-hidden">
-                  <Image src={icon.value} alt={name} layout="fill" objectFit="cover" />
+                  <img src={icon.value} alt={name} />
                 </div>
               )}
               <span className="text-sm text-gray-300">{name}</span>
@@ -66,13 +65,13 @@ const Navigation = ({
   );
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = () => {
   return (
     <ClientProvider>
       <section className="flex">
         <aside className="px-4 w-72 h-screen min-w-0 pt-6 pb-2 flex flex-col gap-1">
           <header className="flex items-center justify-between pl-3 py-2 pr-2">
-            <Link href={"/"} className="flex items-center gap-3 cursor-default">
+            <Link to={"/"} className="flex items-center gap-3 cursor-default">
               <div className="w-8 h-8 bg-linear-to-b from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                 <Sparkles size={20} className={"text-green-200"} fill={"currentColor"} />
               </div>
@@ -107,7 +106,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </aside>
         <main className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
           <div className="flex-1 p-8 border border-gray-800 bg-gray-900 rounded-lg shadow-sm flex flex-col gap-8">
-            {children}
+            <Outlet />
           </div>
         </main>
       </section>
