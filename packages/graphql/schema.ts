@@ -7,34 +7,59 @@ export const schema = `#graphql
 
   type Expense {
     id: String!
-    groupId: String
-    payeeId: String!
-    payee: User!
-    amount: Float!
+    payerId: String!
+    payer: User!
+    total: Float!
     date: DateTime!
     description: String
-    participants: [ExpenseParticipant]
+    expenseSplits: [ExpenseSplit!]!
   }
 
-  type ExpenseParticipant {
+  type ExpenseSplit {
     id: String!
     userId: String!
     user: User!
     amount: Float!
   }
 
-  type Balance {
-    groupId: String
-    payeeId: String!
-    payee: User!
-    recipientId: String!
-    recipient: User!
+  type LedgerBalance {
+    debtorId: String!
+    creditorId: String!
+    balance: Float!
+    debtor: User!
+    creditor: User!
+  }
+
+  type NetDebtSummary {
+    userId: String!
+    totalYouOwe: Float!
+    totalOwedToYou: Float!
+  }
+
+  type LedgerBalancesSummary {
+    owedToYou: [LedgerBalance!]!
+    youOwe: [LedgerBalance!]!
+  }
+
+  input ExpenseSplitInput {
+    userId: String!
     amount: Float!
   }
 
+  input AddExpenseInput {
+    description: String
+    total: Float!
+    date: DateTime!
+    splits: [ExpenseSplitInput!]!
+  }
+
   type Query {
-    expenses: [Expense]
-    expenseParticipants: [ExpenseParticipant]
-    balances: [Balance]
+    me: NetDebtSummary
+    ledgerBalances: LedgerBalancesSummary!
+  }
+
+  type Mutation {
+    addExpense(input: AddExpenseInput!): Expense!
+    recalculateNetDebtSummary: NetDebtSummary!
   }
 `;
