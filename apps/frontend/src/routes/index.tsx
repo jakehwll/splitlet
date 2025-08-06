@@ -1,5 +1,11 @@
+import AddExpense from "../components/AddExpense";
+
 const Index = () => {
-  return <div>Index</div>;
+  return (
+    <div>
+      <AddExpense />
+    </div>
+  );
 };
 
 export default Index;

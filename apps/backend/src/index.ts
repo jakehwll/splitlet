@@ -121,7 +121,7 @@ const server = new ApolloServer({
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
   context: async () => {
-    return { userId: "some-user-id" };
+    return { userId: "user1" };
   },
 });
 
