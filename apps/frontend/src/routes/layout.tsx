@@ -84,7 +84,7 @@ const Layout = () => {
               { icon: { type: "lucide", value: Receipt }, name: "Recent Activity", href: "/recent-activity" },
             ]}
           />
-          <Navigation
+          {/* <Navigation
             title="Groups"
             items={[
               { icon: { type: "group", value: ICON__TORIGATE }, name: "Japan Trip 2023", href: "/groups/abc" },
@@ -92,8 +92,8 @@ const Layout = () => {
               { icon: { type: "group", value: ICON__FIREWORK }, name: "Melbourne New Years", href: "/groups/ghi" },
               { icon: { type: "lucide", value: Plus }, name: "New Group", href: "/groups/create" },
             ]}
-          />
-          <Navigation
+          /> */}
+          {/* <Navigation
             title="Friends"
             items={[
               { icon: { type: "user", value: ICON__TORIGATE }, name: "John Doe", href: "/friends/abcd" },
@@ -102,7 +102,7 @@ const Layout = () => {
               { icon: { type: "user", value: ICON__TORIGATE }, name: "Clover Clark", href: "/friends/lmno" },
               { icon: { type: "lucide", value: UserPlus }, name: "Add Friend", href: "/friends/create" },
             ]}
-          />
+          /> */}
         </aside>
         <main className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
           <div className="flex-1 p-8 border border-gray-800 bg-gray-900 rounded-lg shadow-sm flex flex-col gap-8">
