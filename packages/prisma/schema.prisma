@@ -8,31 +8,75 @@ generator client {
 }
 
 model User {
-    id String @id @default(uuid())
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-    Expense            Expense[]
-    ExpenseParticipant ExpenseParticipant[]
+    expenses            Expense[]
+    expenseSplits       ExpenseSplit[]
+    ledgerBalancesOwed  LedgerBalance[] @relation("LedgerDebtorRelation")
+    ledgerBalancesOwing LedgerBalance[] @relation("LedgerCreditorRelation")
+    settlementsOwed     Settlement[]    @relation("SettlementDebtorRelation")
+    settlementsOwing    Settlement[]    @relation("SettlementCreditorRelation")
+    netDebtSummary      NetDebtSummary?
 }
 
 model Expense {
     id          String   @id @default(uuid())
-    groupId     String?
-    payeeId     String
-    amount      Float
+    payerId     String
+    description String
+    total       Float
+    currency    String   @default("USD")
     date        DateTime
-    description String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
-    payee        User                 @relation(fields: [payeeId], references: [id])
-    participants ExpenseParticipant[]
+    payer         User           @relation(fields: [payerId], references: [id])
+    expenseSplits ExpenseSplit[]
 }
 
-model ExpenseParticipant {
-    userId    String
+model ExpenseSplit {
+    id        String @id @default(uuid())
     expenseId String
+    userId    String
     amount    Float
 
-    user    User     @relation(fields: [userId], references: [id])
-    Expense Expense? @relation(fields: [expenseId], references: [id])
+    expense Expense @relation(fields: [expenseId], references: [id])
+    user    User    @relation(fields: [userId], references: [id])
+}
 
-    @@id([userId, expenseId])
+model LedgerBalance {
+    id         String   @id @default(uuid())
+    debtorId   String
+    creditorId String
+    balance    Float
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    debtor   User @relation("LedgerDebtorRelation", fields: [debtorId], references: [id])
+    creditor User @relation("LedgerCreditorRelation", fields: [creditorId], references: [id])
+
+    @@unique([debtorId, creditorId])
+}
+
+model Settlement {
+    id         String   @id @default(uuid())
+    debtorId   String
+    creditorId String
+    amount     Float
+    settledAt  DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    debtor   User @relation("SettlementDebtorRelation", fields: [debtorId], references: [id])
+    creditor User @relation("SettlementCreditorRelation", fields: [creditorId], references: [id])
+}
+
+model NetDebtSummary {
+    userId         String   @id
+    totalYouOwe    Float
+    totalOwedToYou Float
+    updatedAt      DateTime @updatedAt
+
+    user User @relation(fields: [userId], references: [id])
 }
