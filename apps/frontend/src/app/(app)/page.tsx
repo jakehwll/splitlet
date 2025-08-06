@@ -1,19 +1,12 @@
-import { withAuth } from "@workos-inc/authkit-nextjs";
 import cc from "classcat";
 import Link from "next/link";
 
 export default async function Home() {
-  const { user } = await withAuth();
-
-  if (!user) {
-    return <div>Not signed in :(</div>;
-  }
-
   return (
     <>
       <header className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="font-serif text-2xl font-medium text-white">Hello, {user.firstName}!</h1>
+          <h1 className="font-serif text-2xl font-medium text-white">Hello, {"firstName"}!</h1>
           <p>We hope you're having a lovely day!</p>
         </div>
         <div className="flex gap-4">
