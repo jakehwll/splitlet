@@ -1,0 +1,1 @@
+export const BULLMQ_QUEUE_NAME = "SPLITLET";

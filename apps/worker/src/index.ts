@@ -1,12 +1,13 @@
 import IORedis from "ioredis";
 import { Worker } from "bullmq";
 import { PrismaClient } from "@prisma/client";
+import { BULLMQ_QUEUE_NAME } from "@repo/common";
 
 const connection = new IORedis({ maxRetriesPerRequest: null });
 const prisma = new PrismaClient();
 
 const worker = new Worker(
-  "foo",
+  BULLMQ_QUEUE_NAME,
   async (job) => {
     const userId = job.data.userId;
 

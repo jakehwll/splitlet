@@ -8,13 +8,14 @@
     "dev": "bun run src/index.ts --hot",
     "start": "bun run src/index.ts"
   },
+  "dependencies": {
+    "@repo/common": "workspace:*",
+    "bullmq": "^5.56.9"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "bullmq": "^5.56.9"
   }
 }
