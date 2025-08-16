@@ -1,6 +1,11 @@
-import { useForm, type AnyFieldApi } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { gql, useMutation } from "@apollo/client";
+import { Input } from "./base/input/input";
+import { Select } from "./base/select/select";
+import { Button } from "./base/buttons/button";
+import { Plus, Trash01 } from "@untitledui/icons";
+import { ButtonUtility } from "./base/buttons/button-utility";
 
 const ADD_EXPENSE_MUTATION = gql`
   mutation AddExpense($input: AddExpenseInput!) {
@@ -14,7 +19,13 @@ const ADD_EXPENSE_MUTATION = gql`
 `;
 
 const formSchema = z.object({
-  description: z.string().min(1),
+  description: z
+    .string({
+      error: "Description is required",
+    })
+    .min(1, {
+      error: "Description must be at least 1 character",
+    }),
   total: z
     .number()
     .refine(
@@ -25,7 +36,9 @@ const formSchema = z.object({
         message: "Must be a multiple of 0.01",
       }
     )
-    .min(0.01),
+    .min(0.01, {
+      message: "Total must be greater than 0.",
+    }),
   date: z.date(),
   splits: z.array(
     z.object({
@@ -34,21 +47,6 @@ const formSchema = z.object({
     })
   ),
 });
-
-function FieldInfo({ field }: { field: AnyFieldApi }) {
-  return (
-    <>
-      {field.state.meta.isTouched && !field.state.meta.isValid ? (
-        <div>
-          {field.state.meta.errors.map((error) => (
-            <div key={error.path}>{error.message}</div>
-          ))}
-        </div>
-      ) : null}
-      {field.state.meta.isValidating ? "Validating..." : null}
-    </>
-  );
-}
 
 const AddExpense = () => {
   const [addExpense, { loading }] = useMutation(ADD_EXPENSE_MUTATION);
@@ -59,9 +57,6 @@ const AddExpense = () => {
       total: 0,
       date: new Date(),
       splits: [{ userId: "", amount: 0 }],
-    },
-    validators: {
-      onChange: formSchema,
     },
     onSubmit: async (values) => {
       try {
@@ -92,22 +87,30 @@ const AddExpense = () => {
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-8"
     >
       <div className="w-full">
         <form.Field
           name="description"
+          validators={{
+            onBlur: formSchema.shape.description,
+          }}
           children={(field) => (
             <>
-              <input
-                className="border w-full p-2 rounded"
+              <Input
+                label={"Description"}
                 type="text"
                 placeholder="Description"
                 value={field.state.value as string}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(value) => field.handleChange(value)}
+                isInvalid={field.state.meta.errors.length > 0}
+                hint={
+                  field.state.meta.errors.length > 0 && field.state.meta.errors[0]
+                    ? field.state.meta.errors[0].message
+                    : undefined
+                }
               />
-              <FieldInfo field={field} />
             </>
           )}
         />
@@ -115,18 +118,25 @@ const AddExpense = () => {
       <div className="w-full">
         <form.Field
           name="total"
+          validators={{
+            onBlur: formSchema.shape.total,
+          }}
           children={(field) => (
             <>
-              <input
-                className="border w-full p-2 rounded"
+              <Input
+                label={"Total"}
                 type="number"
-                step="0.01"
                 placeholder="Amount"
-                value={field.state.value as number}
+                value={field.state.value.toString()}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(parseFloat(e.target.value))}
+                onChange={(value) => field.handleChange(parseFloat(value))}
+                isInvalid={field.state.meta.errors.length > 0}
+                hint={
+                  field.state.meta.errors.length > 0 && field.state.meta.errors[0]
+                    ? field.state.meta.errors[0].message
+                    : undefined
+                }
               />
-              <FieldInfo field={field} />
             </>
           )}
         />
@@ -134,16 +144,24 @@ const AddExpense = () => {
       <div className="w-full">
         <form.Field
           name="date"
+          validators={{
+            onBlur: formSchema.shape.date,
+          }}
           children={(field) => (
             <>
-              <input
-                className="border w-full p-2 rounded"
+              <Input
+                label={"Date"}
                 type="date"
                 value={field.state.value?.toISOString().split("T")[0]}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(new Date(e.target.value))}
+                onChange={(value) => field.handleChange(new Date(value))}
+                isInvalid={field.state.meta.errors.length > 0}
+                hint={
+                  field.state.meta.errors.length > 0 && field.state.meta.errors[0]
+                    ? field.state.meta.errors[0].message
+                    : undefined
+                }
               />
-              <FieldInfo field={field} />
             </>
           )}
         />
@@ -153,69 +171,71 @@ const AddExpense = () => {
           name="splits"
           children={(field) => (
             <div className="space-y-2">
-              <h3 className="font-medium">Split Expense</h3>
               {field.state.value.map((split, index) => (
-                <div key={index} className="flex gap-2">
-                  <select
-                    className="border rounded p-2 flex-1"
-                    value={split.userId}
-                    onChange={(e) => {
+                <div key={index} className="flex items-center gap-2">
+                  <Select.ComboBox
+                    className={"w-full"}
+                    placeholder="Select User"
+                    shortcut={false}
+                    selectedKey={split.userId}
+                    label={"Participants"}
+                    onSelectionChange={(value) => {
+                      if (!value) return;
                       const newSplits = [...field.state.value];
-                      newSplits[index].userId = e.target.value;
+                      newSplits[index].userId = value as string;
                       field.handleChange(newSplits);
                     }}
                   >
-                    <option value="">Select User</option>
-                    {/* Add your user options here */}
-                    <option value="user1">User 1</option>
-                    <option value="user2">User 2</option>
-                  </select>
-                  <input
-                    className="border rounded p-2 w-32"
+                    <Select.Item id="user1" onClick={() => {}}>
+                      User 1
+                    </Select.Item>
+                    <Select.Item id="user2" onClick={() => {}}>
+                      User 2
+                    </Select.Item>
+                  </Select.ComboBox>
+                  <Input
+                    className="w-32"
                     type="number"
-                    step="0.01"
                     placeholder="Amount"
-                    value={split.amount}
-                    onChange={(e) => {
+                    value={split.amount.toString()}
+                    label={"Share"}
+                    onChange={(value) => {
                       const newSplits = [...field.state.value];
-                      newSplits[index].amount = parseFloat(e.target.value);
+                      newSplits[index].amount = parseFloat(value);
                       field.handleChange(newSplits);
                     }}
                   />
-                  <button
-                    type="button"
-                    className="px-3 py-2 bg-red-500 text-white rounded"
-                    onClick={() => {
-                      const newSplits = field.state.value.filter((_, i) => i !== index);
-                      field.handleChange(newSplits);
-                    }}
-                  >
-                    Remove
-                  </button>
+                  <div className="mt-6.5">
+                    <ButtonUtility
+                      type="button"
+                      color={"tertiary"}
+                      size={"sm"}
+                      icon={Trash01}
+                      onClick={() => {
+                        const newSplits = field.state.value.filter((_, i) => i !== index);
+                        field.handleChange(newSplits);
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
-              <button
+              <Button
                 type="button"
-                className="px-3 py-2 bg-blue-500 text-white rounded"
-                onClick={() => {
-                  field.handleChange([...field.state.value, { userId: "", amount: 0 }]);
-                }}
+                className="w-full"
+                color={"tertiary"}
+                onClick={() => field.handleChange([...field.state.value, { userId: "", amount: 0 }])}
+                iconLeading={<Plus size={14} />}
               >
                 Add Split
-              </button>
-              <FieldInfo field={field} />
+              </Button>
             </div>
           )}
         />
       </div>
       <div className="w-full mt-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="py-2 px-4 bg-green-500 rounded-md text-white font-medium w-full disabled:bg-green-300"
-        >
-          {loading ? "Submitting..." : "Submit"}
-        </button>
+        <Button type="submit" disabled={loading} className="w-full">
+          Submit
+        </Button>
       </div>
     </form>
   );

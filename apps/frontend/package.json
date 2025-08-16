@@ -10,12 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@internationalized/date": "^3.8.2",
+    "@react-stately/utils": "^3.10.7",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-form": "^1.18.0",
+    "@untitledui/icons": "^0.0.19",
     "react": "^19.1.0",
+    "react-aria": "^3.41.1",
+    "react-aria-components": "^1.10.1",
     "react-dom": "^19.1.0",
     "react-router": "^7.7.1",
     "tailwind": "^4.0.0",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.11",
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-react-aria-components": "^2.0.0",
     "zod": "^4.0.15"
   },
   "devDependencies": {

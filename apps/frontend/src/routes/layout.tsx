@@ -80,8 +80,8 @@ const Layout = () => {
         <aside className="px-4 w-72 h-screen min-w-0 pt-6 pb-2 flex flex-col gap-1">
           <header className="flex items-center justify-between pl-3 py-2 pr-2">
             <Link to={"/"} className="flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 bg-linear-to-b from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                <Sparkles size={20} className={"text-green-200"} fill={"currentColor"} />
+              <div className="w-8 h-8 bg-linear-to-b from-brand-500 to-brand-600 rounded-lg flex items-center justify-center">
+                <Sparkles size={20} className={"text-brand-200"} fill={"currentColor"} />
               </div>
               <span className="font-serif text-2xl font-medium text-white">Splitlet</span>
             </Link>

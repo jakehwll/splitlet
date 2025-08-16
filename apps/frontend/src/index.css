@@ -1,105 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&display=swap");
 
 @import "tailwindcss";
+@import "./theme.css";
 
-html,body {
-  @apply antialiased bg-gray-950 text-gray-400;
-}
-
-@theme {
-  --color-gray-25: #FDFDFC;
-  --color-gray-50: #FAFAF9;
-  --color-gray-100: #F5F5F4;
-  --color-gray-200: #E7E5E4;
-  --color-gray-300: #D7D3D0;
-  --color-gray-400: #A9A29D;
-  --color-gray-500: #79716B;
-  --color-gray-600: #57534E;
-  --color-gray-700: #44403C;
+:root {
+  --color-gray-25: #fdfdfc;
+  --color-gray-50: #fafaf9;
+  --color-gray-100: #f5f5f4;
+  --color-gray-200: #e7e5e4;
+  --color-gray-300: #d7d3d0;
+  --color-gray-400: #a9a29d;
+  --color-gray-500: #79716b;
+  --color-gray-600: #57534e;
+  --color-gray-700: #44403c;
   --color-gray-800: #292524;
-  --color-gray-900: #1C1917;
+  --color-gray-900: #1c1917;
   --color-gray-950: #171412;
 
-  --color-green-25: #FAFDF7;
-  --color-green-50: #F5FBEE;
-  --color-green-100: #E6F4D7;
-  --color-green-200: #CEEAB0;
-  --color-green-300: #ACDC79;
-  --color-green-400: #86CB3C;
-  --color-green-500: #669F2A;
-  --color-green-600: #4F7A21;
-  --color-green-700: #3F621A;
-  --color-green-800: #335015;
-  --color-green-900: #2B4212;
-  --color-green-950: #1A280B;
-
-  --color-red-25: #FFF9F5;
-  --color-red-50: #FFF4ED;
-  --color-red-100: #FFE6D5;
-  --color-red-200: #FFD6AE;
-  --color-red-300: #FF9C66;
-  --color-red-400: #FF692E;
-  --color-red-500: #FF4405;
-  --color-red-600: #E62E05;
-  --color-red-700: #BC1B06;
-  --color-red-800: #97180C;
-  --color-red-900: #771A0D;
-  --color-red-950: #57130A;
-
-  --font-serif: 'Young Serif', serif;
+  --color-brand-25: rgb(250 253 247);
+  --color-brand-50: rgb(245 251 238);
+  --color-brand-100: rgb(230 244 215);
+  --color-brand-200: rgb(206 234 176);
+  --color-brand-300: rgb(172 220 121);
+  --color-brand-400: rgb(134 203 60);
+  --color-brand-500: rgb(102 159 42);
+  --color-brand-600: rgb(79 122 33);
+  --color-brand-700: rgb(63 98 26);
+  --color-brand-800: rgb(51 80 21);
+  --color-brand-900: rgb(43 66 18);
+  --color-brand-950: rgb(26 40 11);
 }
 
-.skeuemorphic:not(:disabled)::before,
-.skeuemorphic:not(:disabled)::after {
-  content: "";
-  position: absolute;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+@plugin "tailwindcss-animate";
+@plugin "tailwindcss-react-aria-components";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+@custom-variant label (& [data-label]);
+@custom-variant focus-input-within (&:has(input:focus));
+
+@utility scrollbar-hide {
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  &::-webkit-scrollbar {
+    display: none;
+    -webkit-appearance: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.skeuemorphic:not(:disabled)::before {
-  inset: -1px;
-  padding: 1px;
-  background: linear-gradient(0deg, rgba(10, 13, 18, 0.18) 0%, rgba(10, 13, 18, 0) 100%);
+@utility transition-inherit-all {
+  transition-property: inherit;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
 }
 
-.skeuemorphic:not(:disabled)::after {
-  inset: 0px;
-  padding: 1px;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.12));
+html,
+body {
+  @apply antialiased bg-gray-950 text-gray-400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 
-.skeuemorphic.rounded-md::before {
-  border-radius: var(--radius-md);
+/* Hide the default expand arrow on Safari.  */
+details summary::-webkit-details-marker {
+  display: none;
 }
 
-.skeuemorphic.rounded-md::after {
-  border-radius: calc(var(--radius-md) - 1px);
+/* Hide default arrows from number inputs. */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-.skeuemorphic-alt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: linear-gradient(0deg, rgba(10, 13, 18, 0.045) 0%, rgba(10, 13, 18, 0) 20%);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-.skeuemorphic-alt.rounded-md::before {
-  border-radius: calc(var(--radius-md) - 1px);
+/* Hide the default clear button (X) from search inputs. */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }

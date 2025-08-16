@@ -8,6 +8,7 @@ import RecentActivity from "./routes/recent-activity.tsx";
 import Groups from "./routes/groups.tsx";
 import Friends from "./routes/friends.tsx";
 import Layout from "./routes/layout.tsx";
+import { ThemeProvider } from "./providers/theme-provider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>
 );
