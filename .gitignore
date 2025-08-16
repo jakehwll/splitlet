@@ -39,9 +39,6 @@ __generated/
 # turborepo
 .turbo
 
-# trigger
-.trigger
-
 # env
 .env
 !.env.example
