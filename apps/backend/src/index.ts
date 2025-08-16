@@ -31,11 +31,6 @@ const resolvers = {
   },
 
   Mutation: {
-    fooBar: async (_parent, _args, context) => {
-      globalQueue.add("fooBar", { foo: "bar" });
-      return "fooBar";
-    },
-
     addExpense: async (_parent, args, context) => {
       const userId = context.userId;
       const { description, total, splits, date } = args.input;
@@ -77,38 +72,16 @@ const resolvers = {
           });
         }
 
+        const userIds = [userId, ...splits.map((split) => split.userId)];
+
+        Promise.all(
+          userIds.map(async (userId) => {
+            return await globalQueue.add("recalculateNetDebtSummary", { userId });
+          })
+        );
+
         return expense;
       });
-    },
-
-    recalculateNetDebtSummary: async (_parent, _args, context) => {
-      const userId = context.userId;
-
-      const [youOweResult, owedToYouResult] = await Promise.all([
-        prisma.ledgerBalance.aggregate({
-          where: { debtorId: userId, balance: { gt: 0 } },
-          _sum: { balance: true },
-        }),
-        prisma.ledgerBalance.aggregate({
-          where: { creditorId: userId, balance: { gt: 0 } },
-          _sum: { balance: true },
-        }),
-      ]);
-
-      const totalYouOwe = youOweResult._sum.balance || 0;
-      const totalOwedToYou = owedToYouResult._sum.balance || 0;
-
-      await prisma.netDebtSummary.upsert({
-        where: { userId },
-        update: { totalYouOwe, totalOwedToYou },
-        create: {
-          userId,
-          totalYouOwe,
-          totalOwedToYou,
-        },
-      });
-
-      return { totalYouOwe, totalOwedToYou };
     },
   },
 };
