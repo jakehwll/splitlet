@@ -10,14 +10,6 @@ const prisma = new PrismaClient();
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    me: async (_parent, _args, context) => {
-      const userId = context.userId;
-      const summary = await prisma.netDebtSummary.findUnique({
-        where: { userId },
-      });
-      return summary;
-    },
-
     ledgerBalances: async (_parent, _args, context) => {
       const userId = context.userId;
       const owedToYou = await prisma.ledgerBalance.findMany({
