@@ -22,9 +22,17 @@ const resolvers = {
       const userId = context.userId;
       const owedToYou = await prisma.ledgerBalance.findMany({
         where: { creditorId: userId, balance: { gt: 0 } },
+        include: {
+          creditor: true,
+          debtor: true,
+        },
       });
       const youOwe = await prisma.ledgerBalance.findMany({
         where: { debtorId: userId, balance: { gt: 0 } },
+        include: {
+          creditor: true,
+          debtor: true,
+        },
       });
       return { owedToYou, youOwe };
     },
