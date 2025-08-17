@@ -1,16 +1,5 @@
 import { ClientProvider } from "../components/ClientProvider";
-import {
-  ChevronDown,
-  Inbox,
-  type LucideIcon,
-  Receipt,
-  Sparkles,
-  // Plus,
-  // UserPlus
-} from "lucide-react";
-
-// import ICON__FIREWORK from "../assets/icon__firework.jpg";
-// import ICON__TORIGATE from "../assets/icon__torigate.jpg";
+import { ChevronDown, Inbox, type LucideIcon, Receipt, Sparkles } from "lucide-react";
 import { Link, Outlet } from "react-router";
 
 const Navigation = ({

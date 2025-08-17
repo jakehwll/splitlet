@@ -28,6 +28,14 @@ const resolvers = {
       });
       return { owedToYou, youOwe };
     },
+    expenses: async (_parent, _args, context) => {
+      const expenses = await prisma.expense.findMany({
+        include: {
+          expenseSplits: true,
+        },
+      });
+      return expenses;
+    },
   },
 
   Mutation: {

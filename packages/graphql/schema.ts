@@ -54,8 +54,8 @@ export const schema = `#graphql
   }
 
   type Query {
-    me: NetDebtSummary
     ledgerBalances: LedgerBalancesSummary!
+    expenses: [Expense!]!
   }
 
   type Mutation {
