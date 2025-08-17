@@ -11,6 +11,7 @@
     "graphql-scalars": "^1.24.2"
   },
   "devDependencies": {
-    "@parcel/watcher": "^2.5.1"
+    "@parcel/watcher": "^2.5.1",
+    "@repo/tsconfig": "workspace:*"
   }
 }
