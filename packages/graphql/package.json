@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@parcel/watcher": "^2.5.1",
+    "@repo/eslint": "workspace:*",
     "@repo/tsconfig": "workspace:*"
   }
 }
