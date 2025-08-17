@@ -1,6 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@repo/graphql";
+import { useQuery } from "@apollo/client";
 
-const LIST_RECENT_ACTIVITY_QUERY = gql`
+const LIST_RECENT_ACTIVITY_QUERY = gql(`
   query ListRecentActivity {
     expenses {
       id
@@ -8,7 +9,7 @@ const LIST_RECENT_ACTIVITY_QUERY = gql`
       date
     }
   }
-`;
+`);
 
 const RecentActivity = () => {
   const { data: recentActivity } = useQuery(LIST_RECENT_ACTIVITY_QUERY);
@@ -22,7 +23,7 @@ const RecentActivity = () => {
         </div>
       </header>
       <section>
-        <pre>{JSON.stringify(recentActivity, null, 2)}</pre>
+        <pre>{JSON.stringify(recentActivity?.expenses, null, 2)}</pre>
       </section>
     </>
   );

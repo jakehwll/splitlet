@@ -1,6 +1,7 @@
 {
   "name": "@repo/graphql",
   "scripts": {
+    "dev": "graphql-codegen --watch",
     "generate": "graphql-codegen"
   },
   "dependencies": {
@@ -8,5 +9,8 @@
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-resolvers": "^4.5.1",
     "graphql-scalars": "^1.24.2"
+  },
+  "devDependencies": {
+    "@parcel/watcher": "^2.5.1"
   }
 }

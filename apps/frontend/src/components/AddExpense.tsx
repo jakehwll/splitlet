@@ -1,14 +1,15 @@
 import { Dialog, DialogTrigger, Modal, ModalOverlay } from "react-aria-components";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Input } from "./base/input/input";
 import { Select } from "./base/select/select";
 import { Button } from "./base/buttons/button";
 import { Plus, Trash01 } from "@untitledui/icons";
 import { ButtonUtility } from "./base/buttons/button-utility";
+import { gql } from "@repo/graphql";
 
-const ADD_EXPENSE_MUTATION = gql`
+const ADD_EXPENSE_MUTATION = gql(`
   mutation AddExpense($input: AddExpenseInput!) {
     addExpense(input: $input) {
       id
@@ -17,7 +18,7 @@ const ADD_EXPENSE_MUTATION = gql`
       date
     }
   }
-`;
+`);
 
 const formSchema = z.object({
   description: z

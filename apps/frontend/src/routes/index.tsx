@@ -1,7 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@repo/graphql";
+import { useQuery } from "@apollo/client";
 import AddExpense from "../components/AddExpense";
 
-const LIST_BALANCES_QUERY = gql`
+const LIST_BALANCES_QUERY = gql(`
   query ListBalances {
     ledgerBalances {
       owedToYou {
@@ -17,11 +18,11 @@ const LIST_BALANCES_QUERY = gql`
         }
       }
     }
-  }
-`;
+  } 
+`);
 
 const Index = () => {
-  const { data: balances } = useQuery(LIST_BALANCES_QUERY);
+  const { data: balances } = useQuery(LIST_BALANCES_QUERY, {});
 
   return (
     <>
