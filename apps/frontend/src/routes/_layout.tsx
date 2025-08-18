@@ -66,31 +66,32 @@ const Layout = () => {
   return (
     <ClientProvider>
       <section className="flex">
-        <aside className="px-4 w-72 h-screen min-w-0 pt-6 pb-2 flex flex-col gap-1">
-          <header className="flex items-center justify-between pl-3 py-2 pr-2">
-            <Link to={"/"} className="flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 bg-linear-to-b from-brand-500 to-brand-600 rounded-lg flex items-center justify-center">
-                <Sparkles size={20} className={"text-brand-200"} fill={"currentColor"} />
-              </div>
-              <span className="font-serif text-2xl font-medium text-white">Splitlet</span>
-            </Link>
-          </header>
-          <Navigation
-            items={[
-              { icon: { type: "lucide", value: Inbox }, name: "Dashboard", href: "/" },
-              { icon: { type: "lucide", value: Receipt }, name: "Recent Activity", href: "/recent-activity" },
-            ]}
-          />
-          {/* <Navigation
-            title="Groups"
-            items={[
-              { icon: { type: "group", value: ICON__TORIGATE }, name: "Japan Trip 2023", href: "/groups/abc" },
-              { icon: { type: "group", value: ICON__FIREWORK }, name: "Sydney New Years", href: "/groups/def" },
-              { icon: { type: "group", value: ICON__FIREWORK }, name: "Melbourne New Years", href: "/groups/ghi" },
-              { icon: { type: "lucide", value: Plus }, name: "New Group", href: "/groups/create" },
-            ]}
-          /> */}
-          {/* <Navigation
+        <aside>
+          <div className="px-4 w-72 h-[calc(100svh_-_calc(var(--spacing)_*_4))] min-w-0 flex flex-col gap-1 overflow-y-auto sticky top-2">
+            <header className="flex items-center justify-between pl-3 py-4 pr-2">
+              <Link to={"/"} className="flex items-center gap-3 cursor-default">
+                <div className="w-8 h-8 bg-linear-to-b from-brand-500 to-brand-600 rounded-lg flex items-center justify-center">
+                  <Sparkles size={20} className={"text-brand-200"} fill={"currentColor"} />
+                </div>
+                <span className="font-serif text-2xl font-medium text-white">Splitlet</span>
+              </Link>
+            </header>
+            <Navigation
+              items={[
+                { icon: { type: "lucide", value: Inbox }, name: "Dashboard", href: "/" },
+                { icon: { type: "lucide", value: Receipt }, name: "Recent Activity", href: "/recent-activity" },
+              ]}
+            />
+            {/* <Navigation
+              title="Groups"
+              items={[
+                { icon: { type: "group", value: ICON__TORIGATE }, name: "Japan Trip 2023", href: "/groups/abc" },
+                { icon: { type: "group", value: ICON__FIREWORK }, name: "Sydney New Years", href: "/groups/def" },
+                { icon: { type: "group", value: ICON__FIREWORK }, name: "Melbourne New Years", href: "/groups/ghi" },
+                { icon: { type: "lucide", value: Plus }, name: "New Group", href: "/groups/create" },
+              ]}
+            /> */}
+            {/* <Navigation
             title="Friends"
             items={[
               { icon: { type: "user", value: ICON__TORIGATE }, name: "John Doe", href: "/friends/abcd" },
@@ -100,6 +101,7 @@ const Layout = () => {
               { icon: { type: "lucide", value: UserPlus }, name: "Add Friend", href: "/friends/create" },
             ]}
           /> */}
+          </div>
         </aside>
         <main className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
           <div className="flex-1 p-8 border border-gray-800 bg-gray-900 rounded-lg shadow-sm flex flex-col gap-8">
