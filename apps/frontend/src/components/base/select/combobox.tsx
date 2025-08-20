@@ -17,8 +17,8 @@ import { HintText } from "../../base/input/hint-text";
 import { Label } from "../../base/input/label";
 import { Popover } from "../../base/select/popover";
 import { type CommonProps, SelectContext, type SelectItemType, sizes } from "../../base/select/select";
-import { useResizeObserver } from "@/hooks/use-resize-observer";
-import { cx } from "@/utils/cx";
+import { useResizeObserver } from "../../../hooks/use-resize-observer";
+import { cx } from "../../../utils/cx";
 
 interface ComboBoxProps
   extends Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,

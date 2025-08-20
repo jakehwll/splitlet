@@ -1,9 +1,9 @@
 import { type HTMLAttributes, type ReactNode } from "react";
-import { HintText } from "../../base/input/hint-text";
-import type { InputBaseProps } from "../../base/input/input";
-import { TextField } from "../../base/input/input";
-import { Label } from "../../base/input/label";
-import { cx, sortCx } from "@/utils/cx";
+import { HintText } from "./hint-text";
+import type { InputBaseProps } from "./input";
+import { TextField } from "./input";
+import { Label } from "./label";
+import { cx, sortCx } from "../../../utils/cx";
 
 interface InputPrefixProps extends HTMLAttributes<HTMLDivElement> {
   /** The position of the prefix. */
