@@ -12,6 +12,7 @@
     "@repo/common": "workspace:*",
     "@repo/graphql": "workspace:*",
     "@repo/prisma": "workspace:*",
+    "better-auth": "^1.3.7",
     "bullmq": "^5.56.9"
   },
   "devDependencies": {
