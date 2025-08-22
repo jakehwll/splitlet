@@ -5,9 +5,10 @@ import { useNavigate } from "react-router";
 import { useForm } from "@tanstack/react-form";
 import { authClient } from "../../utils/auth";
 import { Logo } from "../../components/base/logo/logo";
+import { toast } from "../../utils/toast";
 
 const formSchema = z.object({
-  email: z.email(),
+  email: z.email().min(1),
   password: z.string().min(1),
 });
 
@@ -30,7 +31,11 @@ const SignIn = () => {
             navigate("/");
           },
           onError(ctx) {
-            console.error(ctx.error);
+            toast({
+              variant: "error",
+              title: "Something went wrong...",
+              description: ctx.error.message,
+            });
           },
         },
       });

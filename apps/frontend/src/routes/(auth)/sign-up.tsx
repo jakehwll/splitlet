@@ -5,13 +5,14 @@ import { useNavigate } from "react-router";
 import { authClient } from "../../utils/auth";
 import { Input } from "../../components/base/input/input";
 import { Button } from "../../components/base/buttons/button";
+import { toast } from "../../utils/toast";
 
 const formSchema = z
   .object({
     name: z.string().min(1),
     email: z.email(),
-    password: z.string().min(1),
-    confirmPassword: z.string().min(1),
+    password: z.string().min(8),
+    confirmPassword: z.string().min(8),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
@@ -45,6 +46,13 @@ const SignUp = () => {
         {
           onSuccess() {
             navigate("/");
+          },
+          onError(ctx) {
+            toast({
+              variant: "error",
+              title: "Unable to sign up",
+              description: ctx.error.message,
+            });
           },
         }
       );

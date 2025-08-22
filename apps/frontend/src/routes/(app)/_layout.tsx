@@ -1,7 +1,8 @@
 import { ClientProvider } from "../../components/client-provider";
-import { ChevronDown, Inbox, type LucideIcon, Receipt, Sparkles } from "lucide-react";
+import { ChevronDown, Inbox, LogOut, type LucideIcon, Receipt, Sparkles } from "lucide-react";
 import { Link, Navigate, Outlet } from "react-router";
 import { authClient } from "../../utils/auth";
+import { Toaster } from "sonner";
 
 const Navigation = ({
   title,
@@ -76,25 +77,27 @@ const AppLayout = () => {
   }
 
   return (
-    <ClientProvider>
-      <section className="flex">
-        <aside>
-          <div className="px-4 w-72 h-[calc(100svh_-_calc(var(--spacing)_*_4))] min-w-0 flex flex-col gap-1 overflow-y-auto sticky top-2">
-            <header className="flex items-center justify-between pl-3 py-4 pr-2">
-              <Link to={"/"} className="flex items-center gap-3 cursor-default">
-                <div className="w-8 h-8 bg-linear-to-b from-brand-500 to-brand-600 rounded-lg flex items-center justify-center">
-                  <Sparkles size={20} className={"text-brand-200"} fill={"currentColor"} />
-                </div>
-                <span className="font-serif text-2xl font-medium text-white">Splitlet</span>
-              </Link>
-            </header>
-            <Navigation
-              items={[
-                { icon: { type: "lucide", value: Inbox }, name: "Dashboard", href: "/" },
-                { icon: { type: "lucide", value: Receipt }, name: "Recent Activity", href: "/recent-activity" },
-              ]}
-            />
-            {/* <Navigation
+    <>
+      <ClientProvider>
+        <Toaster />
+        <section className="flex">
+          <aside>
+            <div className="px-4 w-72 h-[calc(100svh_-_calc(var(--spacing)_*_4))] min-w-0 flex flex-col gap-1 overflow-y-auto sticky top-2">
+              <header className="flex items-center justify-between pl-3 py-4 pr-2">
+                <Link to={"/"} className="flex items-center gap-3 cursor-default">
+                  <div className="w-8 h-8 bg-linear-to-b from-brand-500 to-brand-600 rounded-lg flex items-center justify-center">
+                    <Sparkles size={20} className={"text-brand-200"} fill={"currentColor"} />
+                  </div>
+                  <span className="font-serif text-2xl font-medium text-white">Splitlet</span>
+                </Link>
+              </header>
+              <Navigation
+                items={[
+                  { icon: { type: "lucide", value: Inbox }, name: "Dashboard", href: "/" },
+                  { icon: { type: "lucide", value: Receipt }, name: "Recent Activity", href: "/recent-activity" },
+                ]}
+              />
+              {/* <Navigation
               title="Groups"
               items={[
                 { icon: { type: "group", value: ICON__TORIGATE }, name: "Japan Trip 2023", href: "/groups/abc" },
@@ -103,7 +106,7 @@ const AppLayout = () => {
                 { icon: { type: "lucide", value: Plus }, name: "New Group", href: "/groups/create" },
               ]}
             /> */}
-            {/* <Navigation
+              {/* <Navigation
             title="Friends"
             items={[
               { icon: { type: "user", value: ICON__TORIGATE }, name: "John Doe", href: "/friends/abcd" },
@@ -113,15 +116,21 @@ const AppLayout = () => {
               { icon: { type: "lucide", value: UserPlus }, name: "Add Friend", href: "/friends/create" },
             ]}
           /> */}
-          </div>
-        </aside>
-        <main className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
-          <div className="flex-1 p-8 border border-gray-800 bg-gray-900 rounded-lg shadow-sm flex flex-col gap-8">
-            <Outlet />
-          </div>
-        </main>
-      </section>
-    </ClientProvider>
+              <div className="mt-auto">
+                <Navigation
+                  items={[{ icon: { type: "lucide", value: LogOut }, name: "Logout", href: "/auth/sign-out" }]}
+                />
+              </div>
+            </div>
+          </aside>
+          <main className="flex-1 p-2 min-h-screen flex flex-col p-2 min-w-0">
+            <div className="flex-1 p-8 border border-gray-800 bg-gray-900 rounded-lg shadow-sm flex flex-col gap-8">
+              <Outlet />
+            </div>
+          </main>
+        </section>
+      </ClientProvider>
+    </>
   );
 };
 
