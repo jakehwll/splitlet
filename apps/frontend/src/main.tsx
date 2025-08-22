@@ -9,6 +9,8 @@ import Groups from "./routes/(app)/groups.tsx";
 import Friends from "./routes/(app)/friends.tsx";
 import AuthLayout from "./routes/(auth)/_layout.tsx";
 import { ThemeProvider } from "./providers/theme-provider.tsx";
+import SignIn from "./routes/(auth)/sign-in.tsx";
+import SignUp from "./routes/(auth)/sign-up.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,11 +38,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/auth/sign-up",
-        Component: () => <div>Sign Up</div>,
+        Component: SignUp,
       },
       {
         path: "/auth/sign-in",
-        Component: () => <div>Sign In</div>,
+        Component: SignIn,
       },
     ],
   },

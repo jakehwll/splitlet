@@ -22,9 +22,7 @@ app.use(
 app.use("*", authMiddleware);
 
 // Auth
-app.on(["POST", "GET"], "/api/auth/*", (c) => {
-  return auth.handler(c.req.raw);
-});
+app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 
 // Routes
 app.route("/graphql", graphql);
