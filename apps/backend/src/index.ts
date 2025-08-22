@@ -1,127 +1,14 @@
-import { DateTimeResolver } from "graphql-scalars";
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { PrismaClient } from "@prisma/client";
-import { schema } from "@repo/graphql";
-import { globalQueue } from "./utils/bullmq";
-import type { Resolvers } from "@repo/graphql/__generated/resolvers-types";
+import { Hono } from "hono";
+import graphql from "./routes/graphql";
+import { cors } from "hono/cors";
 
-export interface GlobalContext {
-  userId: string;
-}
+const app = new Hono();
 
-const prisma = new PrismaClient();
+app.use(cors());
 
-const resolvers: Resolvers = {
-  DateTime: DateTimeResolver,
-  Query: {
-    ledgerBalances: async (_parent, _args, context) => {
-      const userId = context.userId;
-      const owedToYou = await prisma.ledgerBalance.findMany({
-        where: { creditorId: userId, balance: { gt: 0 } },
-        include: {
-          creditor: true,
-          debtor: true,
-        },
-      });
-      const youOwe = await prisma.ledgerBalance.findMany({
-        where: { debtorId: userId, balance: { gt: 0 } },
-        include: {
-          creditor: true,
-          debtor: true,
-        },
-      });
-      return { owedToYou, youOwe };
-    },
-    expenses: async (_parent, _args, _context) => {
-      const expenses = await prisma.expense.findMany({
-        include: {
-          expenseSplits: {
-            include: {
-              user: true,
-            },
-          },
-          payer: true,
-        },
-      });
-      return expenses;
-    },
-  },
+app.route("/graphql", graphql);
 
-  Mutation: {
-    addExpense: async (_parent, args, context) => {
-      const userId = context.userId;
-      const { description, total, splits, date } = args.input;
-
-      return await prisma.$transaction(async (tx) => {
-        const expense = await tx.expense.create({
-          data: {
-            payerId: userId,
-            description: description ?? "",
-            total,
-            date,
-            expenseSplits: {
-              create: splits.map((split) => ({
-                userId: split.userId,
-                amount: split.amount,
-              })),
-            },
-          },
-          include: {
-            expenseSplits: {
-              include: {
-                user: true,
-              },
-            },
-            payer: true,
-          },
-        });
-
-        for (const split of splits) {
-          if (split.userId === userId) continue;
-
-          await tx.ledgerBalance.upsert({
-            where: {
-              debtorId_creditorId: {
-                debtorId: split.userId,
-                creditorId: userId,
-              },
-            },
-            update: {
-              balance: { increment: split.amount },
-            },
-            create: {
-              debtorId: split.userId,
-              creditorId: userId,
-              balance: split.amount,
-            },
-          });
-        }
-
-        const userIds = [userId, ...splits.map((split) => split.userId)];
-
-        Promise.all(
-          userIds.map(async (userId) => {
-            return await globalQueue.add("recalculateNetDebtSummary", { userId });
-          })
-        );
-
-        return expense;
-      });
-    },
-  },
+export default {
+  fetch: app.fetch,
+  port: 4000,
 };
-
-const server = new ApolloServer<GlobalContext>({
-  typeDefs: schema,
-  resolvers,
-});
-
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
-  context: async (): Promise<GlobalContext> => {
-    return { userId: "user1" };
-  },
-});
-
-console.log(`🚀 Server ready at: ${url}`);
