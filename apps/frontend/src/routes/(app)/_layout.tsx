@@ -1,4 +1,4 @@
-import { ClientProvider } from "../components/ClientProvider";
+import { ClientProvider } from "../../components/ClientProvider";
 import { ChevronDown, Inbox, type LucideIcon, Receipt, Sparkles } from "lucide-react";
 import { Link, Outlet } from "react-router";
 
@@ -62,7 +62,7 @@ const Navigation = ({
   );
 };
 
-const Layout = () => {
+const AppLayout = () => {
   return (
     <ClientProvider>
       <section className="flex">
@@ -113,4 +113,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AppLayout;
