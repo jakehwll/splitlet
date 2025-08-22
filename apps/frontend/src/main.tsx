@@ -11,6 +11,7 @@ import AuthLayout from "./routes/(auth)/_layout.tsx";
 import { ThemeProvider } from "./providers/theme-provider.tsx";
 import SignIn from "./routes/(auth)/sign-in.tsx";
 import SignUp from "./routes/(auth)/sign-up.tsx";
+import SignOut from "./routes/(auth)/sign-out.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/auth/sign-in",
         Component: SignIn,
+      },
+      {
+        path: "/auth/sign-out",
+        Component: SignOut,
       },
     ],
   },
