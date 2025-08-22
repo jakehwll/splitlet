@@ -36,11 +36,18 @@ const SignUp = () => {
   const form = useForm({
     defaultValues,
     onSubmit: async (formData) => {
-      await authClient.signUp.email({
-        name: formData.value.name,
-        email: formData.value.email,
-        password: formData.value.password,
-      });
+      await authClient.signUp.email(
+        {
+          name: formData.value.name,
+          email: formData.value.email,
+          password: formData.value.password,
+        },
+        {
+          onSuccess() {
+            navigate("/");
+          },
+        }
+      );
     },
   });
 
