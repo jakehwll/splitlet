@@ -4,10 +4,15 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { PrismaClient } from "@prisma/client";
 import { schema } from "@repo/graphql";
 import { globalQueue } from "./utils/bullmq";
+import type { Resolvers } from "@repo/graphql/__generated/resolvers-types";
+
+export interface GlobalContext {
+  userId: string;
+}
 
 const prisma = new PrismaClient();
 
-const resolvers = {
+const resolvers: Resolvers = {
   DateTime: DateTimeResolver,
   Query: {
     ledgerBalances: async (_parent, _args, context) => {
@@ -28,10 +33,15 @@ const resolvers = {
       });
       return { owedToYou, youOwe };
     },
-    expenses: async (_parent, _args, context) => {
+    expenses: async (_parent, _args, _context) => {
       const expenses = await prisma.expense.findMany({
         include: {
-          expenseSplits: true,
+          expenseSplits: {
+            include: {
+              user: true,
+            },
+          },
+          payer: true,
         },
       });
       return expenses;
@@ -47,7 +57,7 @@ const resolvers = {
         const expense = await tx.expense.create({
           data: {
             payerId: userId,
-            description,
+            description: description ?? "",
             total,
             date,
             expenseSplits: {
@@ -56,6 +66,14 @@ const resolvers = {
                 amount: split.amount,
               })),
             },
+          },
+          include: {
+            expenseSplits: {
+              include: {
+                user: true,
+              },
+            },
+            payer: true,
           },
         });
 
@@ -94,14 +112,14 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({
+const server = new ApolloServer<GlobalContext>({
   typeDefs: schema,
   resolvers,
 });
 
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
-  context: async () => {
+  context: async (): Promise<GlobalContext> => {
     return { userId: "user1" };
   },
 });

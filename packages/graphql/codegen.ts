@@ -11,6 +11,9 @@ const config: CodegenConfig = {
         gqlTagName: "gql",
       },
     },
+    "./__generated/resolvers-types.ts": {
+      plugins: ["typescript", "typescript-resolvers"],
+    },
   },
   ignoreNoDocuments: true,
 };
