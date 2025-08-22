@@ -35,6 +35,7 @@ interface ComboBoxValueProps extends AriaGroupProps {
   placeholder?: string;
   shortcutClassName?: string;
   placeholderIcon?: IconComponentType | null;
+  leadingText?: string;
   ref?: RefObject<HTMLDivElement | null>;
   onFocus?: FocusEventHandler;
   onPointerEnter?: PointerEventHandler;
@@ -68,6 +69,7 @@ interface MultiSelectProps
   shortcutClassName?: string;
   selectedItems: ListData<SelectItemType>;
   placeholderIcon?: IconComponentType | null;
+  leadingText?: string;
   children: AriaListBoxProps<SelectItemType>["children"];
   onItemCleared?: (key: Key) => void;
   onItemInserted?: (key: Key) => void;
@@ -82,6 +84,7 @@ export const MultiSelectBase = ({
   onItemInserted,
   shortcut,
   placeholder = "Search",
+  leadingText,
   // Omit these props to avoid conflicts with the `Select` component
   name: _name,
   className: _className,
@@ -187,6 +190,7 @@ export const MultiSelectBase = ({
               shortcut={shortcut}
               ref={placeholderRef}
               placeholder={placeholder}
+              leadingText={leadingText}
               // This is a workaround to correctly calculating the trigger width
               // while using ResizeObserver wasn't 100% reliable.
               onFocus={onResize}
@@ -217,6 +221,8 @@ const InnerMultiSelect = ({
   shortcut,
   shortcutClassName,
   placeholder,
+  placeholderIcon,
+  leadingText,
 }: Omit<MultiSelectProps, "selectedItems" | "children">) => {
   const focusManager = useFocusManager();
   const comboBoxContext = useContext(ComboboxContext);
@@ -286,6 +292,7 @@ const InnerMultiSelect = ({
 
   return (
     <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
+      {leadingText && <p className="text-bg-quartenary">{leadingText}</p>}
       {!isSelectionEmpty &&
         comboBoxContext?.selectedItems?.items?.map((value) => (
           <span
@@ -317,7 +324,7 @@ const InnerMultiSelect = ({
         )}
       >
         <AriaInput
-          placeholder={placeholder}
+          placeholder={isSelectionEmpty ? placeholder : undefined}
           onKeyDown={handleInputKeyDown}
           onMouseDown={handleInputMouseDown}
           className="w-full flex-[1_0_0] appearance-none bg-transparent text-md text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed disabled:text-disabled disabled:placeholder:text-disabled"
@@ -351,7 +358,8 @@ export const MultiSelectTagsValue = ({
   shortcut,
   placeholder,
   shortcutClassName,
-  placeholderIcon: Icon = SearchLg,
+  placeholderIcon: Icon,
+  leadingText,
   // Omit this prop to avoid invalid HTML attribute warning
   isDisabled: _isDisabled,
   ...otherProps
@@ -378,6 +386,8 @@ export const MultiSelectTagsValue = ({
               shortcut={shortcut}
               shortcutClassName={shortcutClassName}
               placeholder={placeholder}
+              placeholderIcon={Icon}
+              leadingText={leadingText}
             />
           </FocusScope>
         </>

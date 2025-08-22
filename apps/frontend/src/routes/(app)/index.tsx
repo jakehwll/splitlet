@@ -1,8 +1,6 @@
 import { gql } from "@repo/graphql";
 import { useQuery } from "@apollo/client";
-import AddExpense from "../../components/add-expense";
-import { Button } from "../../components/base/buttons/button";
-import { toast } from "../../utils/toast";
+import { DrawerAddExpense } from "../../components/drawers/add-expense";
 
 const LIST_BALANCES_QUERY = gql(`
   query ListBalances {
@@ -33,7 +31,7 @@ const Index = () => {
           <h1 className="text-2xl text-white font-serif">Welcome back!</h1>
           <p>Here is a list of your current balances...</p>
         </div>
-        <AddExpense />
+        <DrawerAddExpense />
       </header>
       <section>
         {balances && (
