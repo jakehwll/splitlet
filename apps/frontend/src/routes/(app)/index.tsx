@@ -1,6 +1,6 @@
 import { gql } from "@repo/graphql";
 import { useQuery } from "@apollo/client";
-import AddExpense from "../../components/AddExpense";
+import AddExpense from "../../components/add-expense";
 
 const LIST_BALANCES_QUERY = gql(`
   query ListBalances {

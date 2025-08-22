@@ -1,6 +1,7 @@
-import { ClientProvider } from "../../components/ClientProvider";
+import { ClientProvider } from "../../components/client-provider";
 import { ChevronDown, Inbox, type LucideIcon, Receipt, Sparkles } from "lucide-react";
-import { Link, Outlet } from "react-router";
+import { Link, Navigate, Outlet } from "react-router";
+import { authClient } from "../../utils/auth";
 
 const Navigation = ({
   title,
@@ -63,6 +64,13 @@ const Navigation = ({
 };
 
 const AppLayout = () => {
+  const { useSession } = authClient;
+  const { data: session } = useSession();
+
+  if (!session) {
+    return <Navigate to="/auth/sign-in" replace />;
+  }
+
   return (
     <ClientProvider>
       <section className="flex">
