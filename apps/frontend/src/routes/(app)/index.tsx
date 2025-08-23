@@ -28,7 +28,7 @@ const Index = () => {
     <>
       <header className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl text-white font-serif">Welcome back!</h1>
+          <h1 className="text-2xl text-fg-primary font-serif">Welcome back!</h1>
           <p>Here is a list of your current balances...</p>
         </div>
         <DrawerAddExpense />
@@ -36,9 +36,9 @@ const Index = () => {
       <section>
         {balances && (
           <>
-            <h2 className="text-lg text-white font-serif">Owed to you</h2>
+            <h2 className="text-lg text-fg-primary font-serif">Owed to you</h2>
             <pre>{JSON.stringify(balances.ledgerBalances.owedToYou, null, 2)}</pre>
-            <h2 className="text-lg text-white font-serif">You owe</h2>
+            <h2 className="text-lg text-fg-primary font-serif">You owe</h2>
             <pre>{JSON.stringify(balances.ledgerBalances.youOwe, null, 2)}</pre>
           </>
         )}
