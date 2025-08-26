@@ -7,6 +7,8 @@ import { authMiddleware } from "./utils/middleware";
 
 const app = new Hono<AuthEnvironmentContext>();
 
+export const API_PREFIX = "/api";
+
 // Middleware
 app.use(
   "*",
@@ -22,10 +24,10 @@ app.use(
 app.use("*", authMiddleware);
 
 // Auth
-app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+app.on(["POST", "GET"], `${API_PREFIX}/auth/*`, (c) => auth.handler(c.req.raw));
 
 // Routes
-app.route("/graphql", graphql);
+app.route(`${API_PREFIX}/graphql`, graphql);
 
 export default {
   fetch: app.fetch,
