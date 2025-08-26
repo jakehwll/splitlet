@@ -5,7 +5,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --no-clear-screen --hot ./src/index.ts"
+    "dev": "bun run --no-clear-screen --hot ./src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun"
   },
   "dependencies": {
     "@apollo/server": "^4.12.2",
